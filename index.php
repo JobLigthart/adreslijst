@@ -12,6 +12,11 @@
             <input type="submit" name="submit" value="Opslaan">
         </form>
 
+        <div class="adres-display">
+            <form class="adreslijst-form" action="" method="post">
+                <input type="submit" name="ophalen" value="Ophalen">
+            </form>
+        </div>
         <?php 
 
             //Database Connection//
@@ -49,7 +54,23 @@
             
             }
 
+            
+            if(isset($_POST["ophalen"])) {
 
+                $sql = "SELECT * FROM adres";
+                $sth = $db->prepare($sql);
+                $sth->execute();
+
+                while($row = $sth->fetch()) {
+                    $dbvoornaam = $row["voornaam"];
+                    $dbachternaam = $row["achternaam"];
+                    $dbadress = $row["adress"];
+                    $dbhuisnummer = $row["huisnummer"];
+                    $dbwoonplaats = $row["woonplaats"];
+                    $dbpostcode = $row["postcode"];
+                    echo "U heet $dbvoornaam $dbachternaam en u woont op $dbadress $dbhuisnummer in $dbwoonplaats en uw postcode is $dbpostcode.";
+                }
+            }
 
 
             
